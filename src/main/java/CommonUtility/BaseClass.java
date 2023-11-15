@@ -20,7 +20,7 @@ import io.cucumber.java.Scenario;
 
 
 public class BaseClass {
-	
+
 	private static Scenario scenario;
 	private static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<WebDriver>();
 	private static String browserType = ConfigFileReader.getConfigData("browser");
@@ -28,8 +28,6 @@ public class BaseClass {
 
 	//Locators
 	private static By addCartBtn = By.id("button-cart");
-	
-	
 
 	//------------- Browser (Setup & TearDown) --------------------//
 	public void browserSetup(){
@@ -111,20 +109,20 @@ public class BaseClass {
 			System.out.println("Exception while taking screenshot: " + e.getMessage());
 		}
 	}
-	
+
 	public static void setScenario(Scenario scenario) {
-        BaseClass.scenario = scenario;
-    }
+		BaseClass.scenario = scenario;
+	}
 
 	public static void takeScreenshot(String msg) {
 		try {
 			final byte[] screenshot = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.BYTES);
-			scenario.attach(screenshot, "image/png", msg);
+			if(scenario.getName() != null)
+				scenario.attach(screenshot, "image/png", msg );
 		} catch (Exception e) {
 			//e.printStackTrace();
 			System.out.println("Not captured" +scenario);
 		} 
 	} 
-	
 
 }
