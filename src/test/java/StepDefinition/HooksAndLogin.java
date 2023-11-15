@@ -12,7 +12,6 @@ public class HooksAndLogin extends BaseClass {
 	//If you want to declare hooks out of Step definition then mention the hooks path in Runner glue
 	@Before
 	public void openBrowser(Scenario scenario) {
-		System.out.println("hey " + scenario);
 		setScenario(scenario);
 		browserSetup();
 	}
