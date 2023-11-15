@@ -122,6 +122,7 @@ public class BaseClass {
 			scenario.attach(screenshot, "image/png", msg);
 		} catch (Exception e) {
 			//e.printStackTrace();
+			System.out.println("Not captured" +scenario);
 		} 
 	} 
 	
