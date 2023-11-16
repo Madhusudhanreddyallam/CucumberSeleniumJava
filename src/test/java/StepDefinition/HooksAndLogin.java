@@ -12,8 +12,13 @@ public class HooksAndLogin extends BaseClass {
 	//If you want to declare hooks out of Step definition then mention the hooks path in Runner glue
 	@Before
 	public void openBrowser(Scenario scenario) {
-		setScenario(scenario);
 		browserSetup();
+		setScenario(scenario);
+	}
+	
+	@After 
+	public void terminateSession() {
+		tearDown();
 	}
 
 	@Given("^I login into application$")
@@ -21,13 +26,5 @@ public class HooksAndLogin extends BaseClass {
 		LoginClass loginClass = new LoginClass(getDriver());
 		loginClass.logintoApp("madhusudhanreddy.allam@gmail.com", "Atul@123"); 
 	}
-
-	@After 
-	public void terminateSession() {
-		tearDown();
-	}
-
-
-
 
 }

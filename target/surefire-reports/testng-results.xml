@@ -2,51 +2,19 @@
 <testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-11-15T16:24:33Z" name="Surefire suite" finished-at="2023-11-15T16:24:53Z" duration-ms="20225">
+  <suite started-at="2023-11-16T14:27:44Z" name="Surefire suite" finished-at="2023-11-16T14:28:10Z" duration-ms="25934">
     <groups>
       <group name="cucumber">
-        <method signature="AbstractTestNGCucumberTests.runScenario(io.cucumber.testng.PickleWrapper, io.cucumber.testng.FeatureWrapper)[pri:0, instance:Runner.TestrunnerParallel@618b19ad]" name="runScenario" class="io.cucumber.testng.AbstractTestNGCucumberTests"/>
+        <method signature="AbstractTestNGCucumberTests.runScenario(io.cucumber.testng.PickleWrapper, io.cucumber.testng.FeatureWrapper)[pri:0, instance:Runner.TestrunnerParallel@30c15d8b]" name="runScenario" class="io.cucumber.testng.AbstractTestNGCucumberTests"/>
       </group> <!-- cucumber -->
     </groups>
-    <test started-at="2023-11-15T16:24:33Z" name="Surefire test" finished-at="2023-11-15T16:24:53Z" duration-ms="20225">
+    <test started-at="2023-11-16T14:27:44Z" name="Surefire test" finished-at="2023-11-16T14:28:10Z" duration-ms="25934">
       <class name="Runner.TestrunnerParallel">
-        <test-method is-config="true" signature="setUpClass()[pri:0, instance:Runner.TestrunnerParallel@618b19ad]" started-at="2023-11-15T16:24:33Z" name="setUpClass" finished-at="2023-11-15T16:24:33Z" duration-ms="543" status="PASS">
+        <test-method is-config="true" signature="setUpClass()[pri:0, instance:Runner.TestrunnerParallel@30c15d8b]" started-at="2023-11-16T14:27:44Z" name="setUpClass" finished-at="2023-11-16T14:27:44Z" duration-ms="577" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpClass -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper, io.cucumber.testng.FeatureWrapper)[pri:0, instance:Runner.TestrunnerParallel@618b19ad]" started-at="2023-11-15T16:24:33Z" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2023-11-15T16:24:44Z" duration-ms="11316" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA["login to naveenautomationlabs and add Nikon camera to cart"]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA["Optional[This is a feature to login to naveenautomationlabs and select product to cart]"]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- runScenario -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper, io.cucumber.testng.FeatureWrapper)[pri:0, instance:Runner.TestrunnerParallel@618b19ad]" started-at="2023-11-15T16:24:33Z" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2023-11-15T16:24:44Z" duration-ms="11213" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA["login to naveenautomationlabs and add iphone to cart"]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA["Optional[This is a feature to login to naveenautomationlabs and select product to cart]"]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- runScenario -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper, io.cucumber.testng.FeatureWrapper)[pri:0, instance:Runner.TestrunnerParallel@618b19ad]" started-at="2023-11-15T16:24:33Z" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2023-11-15T16:24:45Z" duration-ms="11507" status="PASS">
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper, io.cucumber.testng.FeatureWrapper)[pri:0, instance:Runner.TestrunnerParallel@30c15d8b]" started-at="2023-11-16T14:27:44Z" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2023-11-16T14:28:00Z" duration-ms="15305" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -62,7 +30,39 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runScenario -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:Runner.TestrunnerParallel@618b19ad]" started-at="2023-11-15T16:24:45Z" name="tearDownClass" finished-at="2023-11-15T16:24:53Z" duration-ms="8156" status="PASS">
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper, io.cucumber.testng.FeatureWrapper)[pri:0, instance:Runner.TestrunnerParallel@30c15d8b]" started-at="2023-11-16T14:27:44Z" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2023-11-16T14:27:58Z" duration-ms="13814" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["login to naveenautomationlabs and add iphone to cart"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Optional[This is a feature to login to naveenautomationlabs and select product to cart]"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper, io.cucumber.testng.FeatureWrapper)[pri:0, instance:Runner.TestrunnerParallel@30c15d8b]" started-at="2023-11-16T14:27:44Z" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2023-11-16T14:27:59Z" duration-ms="14503" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["login to naveenautomationlabs and add Nikon camera to cart"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Optional[This is a feature to login to naveenautomationlabs and select product to cart]"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:Runner.TestrunnerParallel@30c15d8b]" started-at="2023-11-16T14:28:00Z" name="tearDownClass" finished-at="2023-11-16T14:28:10Z" duration-ms="10033" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->

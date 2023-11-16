@@ -1,13 +1,9 @@
 package CommonUtility;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.Duration;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -20,14 +16,17 @@ import io.cucumber.java.Scenario;
 
 
 public class BaseClass {
-
-	private static Scenario scenario;
+//if you see any issue with Driver or screenshot set these 3 method as static getDriver, setScenario, getScenario.
+	private static ThreadLocal<Scenario> scenarioThreadLocal = new ThreadLocal<>();
 	private static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<WebDriver>();
 	private static String browserType = ConfigFileReader.getConfigData("browser");
 	private static String url = ConfigFileReader.getConfigData("url");
 
 	//Locators
-	private static By addCartBtn = By.id("button-cart");
+	private static By addCartBtn = By.id("button-cart");	
+	public void clickAddToCartBtn(WebDriver driver) {
+		click(addCartBtn , driver);
+	}
 
 	//------------- Browser (Setup & TearDown) --------------------//
 	public void browserSetup(){
@@ -36,37 +35,39 @@ public class BaseClass {
 		getDriver().get(url);
 	}
 
-	public static WebDriver getDriver(){
+	public WebDriver getDriver(){
 		return threadLocalDriver.get();
 	}
 
 	public void tearDown(){
 		getDriver().quit();
+		scenarioThreadLocal.remove();
 		threadLocalDriver.remove();
 	}
+	
+	//------------- Scenario initialization --------------------//
+    public void setScenario(Scenario scenario) {
+        scenarioThreadLocal.set(scenario);
+    }
+
+    public Scenario getScenario() {
+        return scenarioThreadLocal.get();
+    }
 
 	//------------- common Methods --------------------//
+	
 	public void sendKeys(By locator, String text, WebDriver driver) {
 		WebElement element = waitForStableElement(driver,locator,40);
 		element.clear();
 		element.sendKeys(text);
-		takeScreenshot("Entered Text(SendKeys)" );
+		takeScreenshot("Entered Text(SendKeys)" , driver);
 	}
 
 	public void click(By locator , WebDriver driver) {
 
 		WebElement element  = waitForStableElement(driver,locator,40);
 		element.click();
-		takeScreenshot("Clicked an element" );
-	}
-
-	public static void scrollAndClickElement(WebElement element, WebDriver driver) {
-		((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
-		element.click();
-	}
-
-	public void clickAddToCartBtn(WebDriver driver) {
-		click(addCartBtn , driver);
+		takeScreenshot("Clicked an element", driver );
 	}
 
 	public void waitForElementPresence(WebDriver driver, By elementLocator, int timeoutInSeconds) {
@@ -96,32 +97,13 @@ public class BaseClass {
 		}
 	}
 
-	public static void captureScreenshot(String screenshotName) {
-
+	public void takeScreenshot(String msg, WebDriver driver) {
+		 Scenario scenario = getScenario();
 		try {
-			TakesScreenshot ts = (TakesScreenshot) getDriver();
-			File source = ts.getScreenshotAs(OutputType.FILE);
-			String destination = System.getProperty("user.dir") + "/screenshots/" + screenshotName + ".png";
-			File finalDestination = new File(destination);
-			FileUtils.copyFile(source, finalDestination);
-			System.out.println("Screenshot captured: " + screenshotName);
-		} catch (IOException e) {
-			System.out.println("Exception while taking screenshot: " + e.getMessage());
-		}
-	}
-
-	public static void setScenario(Scenario scenario) {
-		BaseClass.scenario = scenario;
-	}
-
-	public static void takeScreenshot(String msg) {
-		try {
-			final byte[] screenshot = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.BYTES);
-			if(scenario.getName() != null)
-				scenario.attach(screenshot, "image/png", msg );
+			final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+			scenario.attach(screenshot, "image/png", msg );
 		} catch (Exception e) {
-			//e.printStackTrace();
-			System.out.println("Not captured" +scenario);
+			e.printStackTrace();
 		} 
 	} 
 

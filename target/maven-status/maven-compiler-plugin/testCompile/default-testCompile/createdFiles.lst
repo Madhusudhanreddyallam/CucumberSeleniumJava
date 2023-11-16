@@ -1,4 +1,4 @@
 StepDefinition\Amazon_All_category.class
 StepDefinition\HooksAndLogin.class
+Runner\TestRunner.class
 Runner\TestrunnerParallel.class
-Runner\Testrunner.class
