@@ -7,6 +7,7 @@ import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,7 +17,7 @@ import io.cucumber.java.Scenario;
 
 
 public class BaseClass {
-//if you see any issue with Driver or screenshot set these 3 method as static getDriver, setScenario, getScenario.
+	//if you see any issue with Driver or screenshot set these 3 method as static getDriver, setScenario, getScenario.
 	private static ThreadLocal<Scenario> scenarioThreadLocal = new ThreadLocal<>();
 	private static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<WebDriver>();
 	private static String browserType = ConfigFileReader.getConfigData("browser");
@@ -44,20 +45,20 @@ public class BaseClass {
 		scenarioThreadLocal.remove();
 		threadLocalDriver.remove();
 	}
-	
-	//------------- Scenario initialization --------------------//
-    public void setScenario(Scenario scenario) {
-        scenarioThreadLocal.set(scenario);
-    }
 
-    public Scenario getScenario() {
-        return scenarioThreadLocal.get();
-    }
+	//------------- Scenario initialization --------------------//
+	public void setScenario(Scenario scenario) {
+		scenarioThreadLocal.set(scenario);
+	}
+
+	public Scenario getScenario() {
+		return scenarioThreadLocal.get();
+	}
 
 	//------------- common Methods --------------------//
-	
+
 	public void sendKeys(By locator, String text, WebDriver driver) {
-		WebElement element = waitForStableElement(driver,locator,40);
+		WebElement element = waitForElementPresence(driver,locator,15);
 		element.clear();
 		element.sendKeys(text);
 		takeScreenshot("Entered Text(SendKeys)" , driver);
@@ -65,15 +66,22 @@ public class BaseClass {
 
 	public void click(By locator , WebDriver driver) {
 
-		WebElement element  = waitForStableElement(driver,locator,40);
+		WebElement element  = waitForElementPresence(driver,locator,15);
 		element.click();
 		takeScreenshot("Clicked an element", driver );
 	}
 
-	public void waitForElementPresence(WebDriver driver, By elementLocator, int timeoutInSeconds) {
+	public WebElement waitForElementPresence(WebDriver driver, By elementLocator, int timeoutInSeconds) {
 		Duration timeout = Duration.ofSeconds(timeoutInSeconds); 
 		WebDriverWait wait = new WebDriverWait(driver, timeout);
-		wait.until(ExpectedConditions.presenceOfElementLocated(elementLocator));
+		try {
+			wait.until(ExpectedConditions.presenceOfElementLocated(elementLocator));
+			return wait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
+		}catch(TimeoutException e) {
+			e.printStackTrace();
+			System.out.println("Verify whether the xpath(or) the locator has changed");
+			return null;
+		}	
 	}
 
 	public WebElement waitForStableElement(WebDriver driver, By locator, int timeoutInSeconds)
@@ -98,7 +106,7 @@ public class BaseClass {
 	}
 
 	public void takeScreenshot(String msg, WebDriver driver) {
-		 Scenario scenario = getScenario();
+		Scenario scenario = getScenario();
 		try {
 			final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 			scenario.attach(screenshot, "image/png", msg );

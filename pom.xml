@@ -72,6 +72,12 @@
 					<includes>
 						<include>**/TestrunnerParallel.java</include>
 					</includes>
+					<properties>
+						<property>
+							<name>dataproviderthreadcount</name>
+							<value>2</value>
+						</property>
+					</properties>
 				</configuration>
 			</plugin>
 		</plugins>
