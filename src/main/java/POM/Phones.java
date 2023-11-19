@@ -14,10 +14,10 @@ public class Phones extends BaseClass{
 		this.driver = driver;
 	}
 	public void navigateToPhonesScreen() {
-		click(Phones_menu,driver);	
+		click(driver, Phones_menu);	
 	}
 	public void addiphoneToCart() {
-		click(iphone,driver);
+		click(driver, iphone);
 		clickAddToCartBtn(driver);
 	}
 

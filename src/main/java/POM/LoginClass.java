@@ -15,9 +15,9 @@ public class LoginClass extends BaseClass {
 	}
 
 	public void logintoApp(String userNm , String password) {	
-		sendKeys(userName,userNm,driver);
-		sendKeys(pwd,password,driver);
-		click(loginBtn,driver);
+		sendKeys(driver, userName, userNm);
+		sendKeys(driver, pwd, password);
+		click(driver, loginBtn);
 		try {Thread.sleep(2000);}catch(Exception e) {}		
 	}
 

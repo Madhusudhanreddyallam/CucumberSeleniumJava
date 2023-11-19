@@ -15,10 +15,10 @@ public class Tablets extends BaseClass {
 		this.driver = driver;
 	}
 	public void navigateToTabletsScreen() {
-		click(tablets_menu,driver);	
+		click(driver, tablets_menu);	
 	}
 	public void addGalaxyTabToCart() {
-		click(galaxy_tab,driver);
+		click(driver, galaxy_tab);
 		clickAddToCartBtn(driver);
 	}
 	

@@ -15,10 +15,10 @@ public class Cameras extends BaseClass {
 	}
 	
 	public void navigateToCamerasScreen() {
-		click(cameras_menu ,driver);	
+		click(driver, cameras_menu );	
 	}
 	public void addNikonToCart() {
-		click(nikon,driver);
+		click(driver, nikon);
 		clickAddToCartBtn(driver);
 	}
 

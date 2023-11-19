@@ -3,9 +3,8 @@ package CommonUtility;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -26,7 +25,7 @@ public class BaseClass {
 	//Locators
 	private static By addCartBtn = By.id("button-cart");	
 	public void clickAddToCartBtn(WebDriver driver) {
-		click(addCartBtn , driver);
+		click(driver,addCartBtn);
 	}
 
 	//------------- Browser (Setup & TearDown) --------------------//
@@ -57,51 +56,60 @@ public class BaseClass {
 
 	//------------- common Methods --------------------//
 
-	public void sendKeys(By locator, String text, WebDriver driver) {
-		WebElement element = waitForElementPresence(driver,locator,15);
-		element.clear();
-		element.sendKeys(text);
-		takeScreenshot("Entered Text(SendKeys)" , driver);
-	}
 
-	public void click(By locator , WebDriver driver) {
 
-		WebElement element  = waitForElementPresence(driver,locator,15);
-		element.click();
-		takeScreenshot("Clicked an element", driver );
-	}
-
-	public WebElement waitForElementPresence(WebDriver driver, By elementLocator, int timeoutInSeconds) {
+	public WebElement waitForElementPresence(WebDriver driver, By locator, int timeoutInSeconds) {
 		Duration timeout = Duration.ofSeconds(timeoutInSeconds); 
 		WebDriverWait wait = new WebDriverWait(driver, timeout);
 		try {
-			wait.until(ExpectedConditions.presenceOfElementLocated(elementLocator));
-			return wait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
-		}catch(TimeoutException e) {
-			e.printStackTrace();
-			System.out.println("Verify whether the xpath(or) the locator has changed");
-			return null;
+			WebElement ele = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+			wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+			return ele;
+		}catch(TimeoutException e) {	
+			throw e;
 		}	
 	}
 
-	public WebElement waitForStableElement(WebDriver driver, By locator, int timeoutInSeconds)
-	{ 
-		WebDriverWait wait;
-		WebElement element;
-		Duration timeout = Duration.ofSeconds(timeoutInSeconds); 	
-		try {
-			waitForElementPresence(driver,locator,timeoutInSeconds);
-			element = driver.findElement(locator);
-			return element;
-		}catch(ElementNotInteractableException e) {
-			wait = new WebDriverWait(driver, timeout);
-			element = wait.until(ExpectedConditions.elementToBeClickable(locator));
-			return element;
+	public void click(WebDriver driver, By locator ) {
+		int attempts = 0;
+		while(attempts <= 2) {
+			try {
+				WebElement element  = waitForElementPresence(driver,locator,10);
+				element.click();
+				takeScreenshot("Clicked an element", driver );
+				break;
+			} catch(StaleElementReferenceException e) {
+				if (attempts==2) {
+					takeScreenshot("Exception occured on this screen", driver );
+					throw e;
+				}
+				attempts++;				
+			} catch (Exception e) {
+				takeScreenshot("Exception occured on this screen", driver );
+				throw e;
+			}
 		}
-		catch(NoSuchElementException e) {
-			wait = new WebDriverWait(driver, timeout);
-			element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-			return element;
+	}
+
+	public void sendKeys(WebDriver driver, By locator, String text) {
+		int attempts = 0;
+		while(attempts <= 2) {
+			try {
+				WebElement element  = waitForElementPresence(driver,locator,10);
+				element.clear();
+				element.sendKeys(text);
+				takeScreenshot("Entered Text(SendKeys)" , driver);
+				break;
+			}catch(StaleElementReferenceException e) {
+				if (attempts==2) {
+					takeScreenshot("Exception occured on this screen", driver );
+					throw e;
+				}
+				attempts++;
+			}catch (Exception e) {
+				takeScreenshot("Exception occured on this screen", driver );
+				throw e;
+			}
 		}
 	}
 
@@ -114,5 +122,4 @@ public class BaseClass {
 			e.printStackTrace();
 		} 
 	} 
-
 }
