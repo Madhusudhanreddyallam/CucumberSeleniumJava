@@ -10,7 +10,7 @@ import io.cucumber.junit.CucumberOptions;
 		features="src/test/resources/Features",
 		glue= "StepDefinition",
 		tags = "@Reg",
-		plugin = {"pretty",
+		plugin = {"pretty","rerun:target/failed.txt",
 		"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}, 
 		monochrome = true, //Cucumber will produce o/p without using colors, and when set to false (or omitted), it will attempt to use colors to enhance the readability of o/p
 		//publish = true, // will publish report on "https://reports.cucumber.io/reports" path

@@ -5,7 +5,7 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
-		features={"src/test/resources/Features","src/main/java/CommonUtility"},
+		features={"@target/failed.txt"},
 		glue= "StepDefinition",
 		tags = "@Reg and not @sanity",
 		plugin = {"pretty","rerun:target/failed.txt",
@@ -15,7 +15,7 @@ import io.cucumber.testng.CucumberOptions;
 		dryRun = false //Cucumber will not execute the actual scenario steps but will check if there are matching step definitions for each step in your feature files
 		)
 
-public class TestrunnerParallel extends AbstractTestNGCucumberTests {
+public class TestrunnerParallelRerunFailed extends AbstractTestNGCucumberTests {
 	@Override
 	@DataProvider(parallel = true)
 	public Object[][] scenarios() {

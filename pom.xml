@@ -71,6 +71,7 @@
 				<configuration>
 					<includes>
 						<include>**/TestrunnerParallel.java</include>
+						<!--<include>**/TestrunnerParallelRerunFailed.java</include>-->
 					</includes>
 					<properties>
 						<property>
