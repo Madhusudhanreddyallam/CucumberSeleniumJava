@@ -6,7 +6,7 @@ Feature: This is a feature to login to naveenautomationlabs and select product t
     Given I login into application
     When I click on add to cart of Samsung Galaxy Tab 
     Then Galaxy Tab is added to cart
- @sanity
+ @Reg
   Scenario: login to naveenautomationlabs and add iphone to cart
     Given I login into application
     When I click on add to cart of iphone

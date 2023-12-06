@@ -22,6 +22,11 @@ public class BaseClass {
 	private static String browserType = ConfigFileReader.getConfigData("browser");
 	private static String url = ConfigFileReader.getConfigData("url");
 
+	/*
+	 * public BaseClass() { // Print the hash code or memory address
+	 * System.out.println("BaseClass instance created: " + this.hashCode()); }
+	 */
+	
 	//Locators
 	private static By addCartBtn = By.id("button-cart");	
 	public void clickAddToCartBtn(WebDriver driver) {

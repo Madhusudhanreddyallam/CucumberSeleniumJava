@@ -13,6 +13,8 @@ public class Tablets extends BaseClass {
 	
 	public Tablets(WebDriver driver) {
 		this.driver = driver;
+//		getScenario().log("Tablets instance created: " + this.hashCode());
+//		System.out.println("Tablets instance created: " + this.hashCode());
 	}
 	public void navigateToTabletsScreen() {
 		click(driver, tablets_menu);	
