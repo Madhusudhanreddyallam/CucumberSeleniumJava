@@ -17,16 +17,15 @@ import io.cucumber.java.Scenario;
 
 public class BaseClass {
 	//if you see any issue with Driver or screenshot set these 3 method as static getDriver, setScenario, getScenario.
+
 	private static ThreadLocal<Scenario> scenarioThreadLocal = new ThreadLocal<>();
 	private static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<WebDriver>();
-	private static String browserType = ConfigFileReader.getConfigData("browser");
-	private static String url = ConfigFileReader.getConfigData("url");
-
+	ConfigFileReader configFileReader = new ConfigFileReader();
 	/*
 	 * public BaseClass() { // Print the hash code or memory address
 	 * System.out.println("BaseClass instance created: " + this.hashCode()); }
 	 */
-	
+
 	//Locators
 	private static By addCartBtn = By.id("button-cart");	
 	public void clickAddToCartBtn(WebDriver driver) {
@@ -35,6 +34,8 @@ public class BaseClass {
 
 	//------------- Browser (Setup & TearDown) --------------------//
 	public void browserSetup(){
+		String browserType = configFileReader.getConfigData("browser");
+		String url = configFileReader.getConfigData("url");
 		WebDriver driver = DriverFactory.doBrowserSetup(browserType);
 		threadLocalDriver.set(driver); 
 		getDriver().get(url);
